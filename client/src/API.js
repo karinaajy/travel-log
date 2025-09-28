@@ -6,15 +6,31 @@ export async function listLogEntries() {
 }
 
 export async function createLogEntry(entry) {
-  const apiKey = entry.apiKey;
-  delete entry.apiKey;
+  let apiKey;
+  let body;
+  let headers = {};
+
+  // 检查是否是FormData（文件上传）
+  if (entry instanceof FormData) {
+    apiKey = entry.get('apiKey');
+    entry.delete('apiKey');
+    body = entry;
+    // FormData不需要设置content-type，浏览器会自动设置
+  } else {
+    // 普通JSON数据
+    apiKey = entry.apiKey;
+    delete entry.apiKey;
+    headers['content-type'] = 'application/json';
+    body = JSON.stringify(entry);
+  }
+
   const response = await fetch(`${API_URL}/api/logs`, {
     method: 'POST',
     headers: {
-      'content-type': 'application/json',
+      ...headers,
       'X-API-KEY': apiKey, 
     },
-    body: JSON.stringify(entry),
+    body,
   });
   let json;
   if (response.headers.get('content-type').includes('text/html')) {
