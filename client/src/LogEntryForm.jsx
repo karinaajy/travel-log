@@ -69,9 +69,15 @@ const LogEntryForm = ({ location, onClose }) => {
       // 创建FormData对象来支持文件上传
       const formData = new FormData();
       
+      // 添加API密钥
+      formData.append('apiKey', data.apiKey);
+      
       // 添加所有表单字段
       Object.keys(data).forEach(key => {
-        if (key === 'image' && data[key] && data[key][0]) {
+        if (key === 'apiKey') {
+          // API密钥已经单独处理了
+          return;
+        } else if (key === 'image' && data[key] && data[key][0]) {
           // 如果是文件，添加文件对象
           formData.append('image', data[key][0]);
         } else if (data[key] !== undefined && data[key] !== '') {
