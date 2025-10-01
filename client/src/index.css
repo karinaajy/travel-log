@@ -299,8 +299,8 @@ body {
 
 .remove-image {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: -10px;
+  right: 0px;
   width: 28px;
   height: 28px;
   border-radius: 50%;
