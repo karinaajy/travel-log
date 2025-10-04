@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { listLogEntries } from './API';
+import { API_URL, listLogEntries } from './API';
 import LogEntryForm from './LogEntryForm';
 
 // 修复Leaflet默认图标问题
@@ -125,7 +125,7 @@ const App = () => {
                 <small>Visited on: {new Date(entry.visitDate).toLocaleDateString()}</small>
                 {entry.image && (
                   <img 
-                    src={entry.image.startsWith('http') ? entry.image : `http://localhost:1337${entry.image}`} 
+                    src={entry.image.startsWith('http') ? entry.image : `${API_URL}${entry.image}`} 
                     alt={entry.title} 
                   />
                 )}

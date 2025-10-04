@@ -9,7 +9,7 @@ import {
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-import { listLogEntries } from './API'
+import { API_URL, listLogEntries } from './API'
 import LogEntryForm from './LogEntryForm'
 
 // 修复Leaflet默认图标问题
@@ -160,7 +160,7 @@ const App = () => {
                     src={
                       entry.image.startsWith('http')
                         ? entry.image
-                        : `http://localhost:1337${entry.image}`
+                        : `${API_URL}${entry.image}`
                     }
                     alt={entry.title}
                     style={{
