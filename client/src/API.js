@@ -1,4 +1,5 @@
-const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:1337' : 'https://travel-log-api.now.sh';
+const apiBaseFromEnv = import.meta.env.VITE_API_URL?.trim();
+const API_URL = apiBaseFromEnv || (window.location.hostname === 'localhost' ? 'http://localhost:1337' : 'https://travel-log-api.now.sh');
 
 export async function listLogEntries() {
   const response = await fetch(`${API_URL}/api/logs`);
